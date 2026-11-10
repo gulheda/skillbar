@@ -1,3 +1,6 @@
 .DS_Store
 *.app
 build/
+desktop/node_modules/
+desktop/web/
+desktop/dist/

@@ -1,8 +1,8 @@
 # Skillbar
 
-**A desktop widget for your Claude Code skills, and a hand-picked set of skills worth installing.**
+**A desktop widget for your Claude Code skills, and a hand-picked set of skills worth installing.** For macOS, Windows and Linux.
 
-I installed a dozen Claude Code skill packs in one afternoon and then could not remember any of them. Which one do I use when something breaks? What was the command for the SEO audit? Skillbar is the answer I built for myself: a small macOS window that lives on the desktop, opens with a hotkey, and tells you which skill to use for what you are trying to do, with the command ready to copy.
+I installed a dozen Claude Code skill packs in one afternoon and then could not remember any of them. Which one do I use when something breaks? What was the command for the SEO audit? Skillbar is the answer I built for myself: a small window that lives on the desktop, opens with a hotkey, and tells you which skill to use for what you are trying to do, with the command ready to copy.
 
 ![Skillbar](assets/hero.png)
 
@@ -15,13 +15,36 @@ I installed a dozen Claude Code skill packs in one afternoon and then could not 
 - **92 skills and tools, explained.** What each one does, when to reach for it, the exact command, an example prompt and the gotchas.
 - **Copy and paste into Claude Code.** Enter or ⌘C copies the command. Recent and starred skills stay at the top.
 - **Lives on your desktop.** Sits behind your windows like a widget, stays put when you show the desktop, remembers where you placed it. Click away and it shrinks to a single search bar.
-- **Keyboard first.** ⌥⇧Space from anywhere, ↑↓ to move, ↵ to open, esc to go back. Light and dark mode follow the system.
+- **Keyboard first.** Alt+Shift+Space from anywhere, ↑↓ to move, ↵ to open, Esc to go back. Light and dark mode follow the system.
 
-Native Swift (AppKit + WebKit), about 300 lines, no dependencies, nothing leaves your Mac.
+Runs on **macOS, Windows and Linux**. On macOS there is also a tiny native Swift build (AppKit + WebKit, about 300 lines, no dependencies). Nothing leaves your computer.
 
 ## Install
 
-Requires macOS 12 or later and the Xcode command line tools (`xcode-select --install`).
+### Download (Windows, Linux, macOS)
+
+Grab the latest build from **[Releases](https://github.com/gulheda/skillbar/releases/latest)**:
+
+| System | File |
+| --- | --- |
+| Windows | `Skillbar-Setup-…-x64.exe` (installer) or `Skillbar-Portable-….exe` (no install) |
+| Linux | `Skillbar-….AppImage` (make it executable and run) or the `.deb` |
+| macOS | `Skillbar-….dmg` (first launch: right-click the app → Open, since it is not notarized) |
+
+### Run from source (any system)
+
+Needs [Node.js](https://nodejs.org) 18 or newer.
+
+```bash
+git clone https://github.com/gulheda/skillbar.git
+cd skillbar/desktop
+npm install
+npm start
+```
+
+### Native macOS build (optional)
+
+Smaller and closer to a real widget: it sits on the desktop behind your windows and stays put when you show the desktop. Needs macOS 12+ and the Xcode command line tools (`xcode-select --install`).
 
 ```bash
 git clone https://github.com/gulheda/skillbar.git
@@ -29,19 +52,27 @@ cd skillbar
 ./build.sh
 ```
 
-The script compiles the app, installs it to `~/Applications/Skillbar.app` and opens it. To start it at login: **System Settings → General → Login Items → +** and pick Skillbar.
+This installs `~/Applications/Skillbar.app` and opens it.
+
+### Start at login
+
+- **macOS:** System Settings → General → Login Items → + → Skillbar
+- **Windows:** press Win+R, type `shell:startup`, put a shortcut to Skillbar in that folder
+- **Linux:** add Skillbar to your desktop's Startup Applications
+
+## Shortcuts
 
 | Shortcut | Action |
 | --- | --- |
-| ⌥ ⇧ Space | Show, expand, or hide |
+| Alt ⇧ Space (⌥ ⇧ Space on Mac) | Show, expand, or hide |
 | ↑ ↓ ↵ | Move and open |
-| ⌘C / ↵ on a skill | Copy its command |
-| ⌘D | Star |
-| esc / ⌫ | Back, then shrink |
-| ⌘W or red button | Close (menu bar icon brings it back) |
+| Ctrl/⌘ C or ↵ on a skill | Copy its command |
+| Ctrl/⌘ D | Star |
+| Esc / Backspace | Back, then shrink |
+| red button | Close (the tray / menu bar icon brings it back) |
 | green button | Shrink to a search bar |
 
-Right-click the menu bar icon for *Keep above other windows*, *Reset position* and *Quit*.
+Right-click the tray or menu bar icon for *Keep above other windows*, *Reset position* and *Quit*.
 
 ## The skill set
 
@@ -70,9 +101,9 @@ If you are new to all this, start with four: `grill-me` before you build, `diagn
 
 ## Make it yours
 
-Everything the app shows lives in [`app/skills.js`](app/skills.js): categories, skills, situations and guides. Add your own entries, delete the packs you do not use, then run `./build.sh` again. Recents, stars and checklist ticks are stored locally.
+Everything the app shows lives in [`app/skills.js`](app/skills.js): categories, skills, situations and guides. Add your own entries, delete the packs you do not use, then run `npm start` (or `./build.sh` on the native Mac build) again. Recents, stars and checklist ticks are stored locally.
 
-The hotkey is set at the top of [`app/main.swift`](app/main.swift).
+The hotkey is set at the top of [`desktop/main.js`](desktop/main.js) and [`app/main.swift`](app/main.swift).
 
 ## Contributing
 
